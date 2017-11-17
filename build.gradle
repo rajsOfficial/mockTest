@@ -1,0 +1,46 @@
+apply plugin : 'java-library'
+apply plugin : 'war'
+apply plugin : 'appengine'
+def appEmail = "raj.sivakumar@full.co"
+def appengineVersion = "1.9.34"
+
+buildscript{
+	repositories{
+		mavenCentral()
+		} 
+	dependencies{
+		classpath "com.google.appengine:gradle-appengine-plugin:1.9.34"
+	}
+}
+
+repositories {
+	mavenCentral()
+}	
+
+dependencies{
+	appengineSdk "com.google.appengine:appengine-java-sdk:${appengineVersion}"
+	providedCompile "javax.servlet:javax.servlet-api:3.0.1"
+    compile group: 'org.eclipse.jetty', name: 'jetty-servlets', version: '9.4.0.M1'
+    testImplementation 'junit:junit:4.12'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.5'
+	testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.4'
+	testCompile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.4'
+	compile group: 'org.powermock', name: 'powermock-module-junit4-common', version: '1.6.4'
+	compile group: 'org.powermock', name: 'powermock-api-support', version: '1.6.4'
+	
+}
+
+appengine{
+
+	httpPort = 8444
+	downloadSdk = true 
+	 
+	appcfg{
+	email = "${appEmail}"
+    oauth2 = true
+  }
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+	
